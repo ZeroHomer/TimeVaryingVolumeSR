@@ -1,0 +1,1 @@
+nohup python -u train.py --train_data_dir viscousFingers/train --val_data_dir viscousFingers/test --dim "(100, 100, 100)" --dataset_name viscousFingers --train_batch_size 3  --n_epochs 300 --ssim --cuda  --resume /home/dell/YeKaiwei/SuperResolution/checkpoint_ConvGRUVSR_viscousFingers_no_attn/ConvGRUVSR_epoch_52.pth >> viscousFingers_no_attn.log &

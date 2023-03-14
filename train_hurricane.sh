@@ -1,0 +1,1 @@
+nohup python -u train.py --train_data_dir hurricane_wind/train --val_data_dir hurricane_wind/test --dim "(48, 240, 240)" --dataset_name hurricane_wind --train_batch_size 3  --ssim --cuda --resume /home/dell/YeKaiwei/SuperResolution/checkpoint_ConvGRUVSR_hurricane_ab_H/ConvGRUVSR_epoch_52.pth >> hurricane.log &
