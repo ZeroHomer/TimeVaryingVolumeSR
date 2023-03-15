@@ -7,7 +7,7 @@ from torchvision import transforms
 
 from model import ConvLSTMVSR, ConvGRUVSR
 
-from dataset import VolumesDataset, RandomCrop3D, RandomFlip3D
+from dataset import VolumesDataset, RandomFlip3D
 from ssim import ssim, ms_ssim
 import argparse
 import torch
@@ -206,8 +206,6 @@ if __name__ == '__main__':
 
         # save the best
         addition = ''
-        # if opt.sample_num != 4:
-        #     addition = '_' + str(opt.sample_num) + '_sample'
         if not opt.attn:
             addition = addition + '_no_attn'
         if opt.lambda_content == 0:
