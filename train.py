@@ -88,7 +88,7 @@ def SSIM(y_pred, y):
 if __name__ == '__main__':
     opt = parser.parse_args()
     print(opt)
-    net_name = 'ConvGRUVSR2'
+    net_name = 'ConvGRUVSR'
     device = None
     print("===>Setting GPU")
     if opt.cuda and torch.cuda.is_available():
