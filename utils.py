@@ -227,7 +227,6 @@ class SimplifiedChannelAttention(nn.Module):
         out = self.conv(self.pool(x))
         return out
 
-
 class SCBAM(nn.Module):
     def __init__(self, planes):
         super(SCBAM, self).__init__()
