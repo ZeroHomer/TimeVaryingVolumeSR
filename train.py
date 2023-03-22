@@ -37,7 +37,6 @@ parser.add_argument("--lambda_content", type=float, default=1, help="pixel-wise 
 parser.add_argument("--lambda_ssim", type=float, default=1, help="ssim loss weight Default=1")
 parser.add_argument("--attn", action="store_true", help="use attention mechanism or not")
 
-
 parser.add_argument("--patience", type=int, default=100)
 parser.add_argument("--psnr", action="store_true", help="Use psnr?")
 parser.add_argument("--ssim", action="store_true", help="Use ssim?")
@@ -45,6 +44,8 @@ parser.add_argument("--ssim", action="store_true", help="Use ssim?")
 parser.add_argument("--cuda", action="store_true", help="Use cuda?")
 parser.add_argument("--resume", default="", type=str, help="Path to checkpoint (default: none)")
 parser.add_argument("--start-epoch", default=0, type=int, help="Manual epoch number (useful on restarts)")
+
+parser.add_argument("--block_num", default=3, type=int)
 
 warnings.filterwarnings("ignore")
 
@@ -103,7 +104,7 @@ if __name__ == '__main__':
 
     print("===>Loading data")
     transform = transforms.Compose({
-        RandomFlip3D()
+        RandomFlip3D(0.7)
     })
     seq_num = 5
     train_set = VolumesDataset(opt.train_data_dir, dim, dsam_scale_factor, transform, seq_num=seq_num)
@@ -112,11 +113,11 @@ if __name__ == '__main__':
     val_loader = DataLoader(val_set, batch_size=1)
 
     print("===>Building model")
-    # net = ConvLSTMVSR()
     hidden_channels = [2, 4, 8]
     num_layers = len(hidden_channels)
+    block_num = opt.block_num
     norm_dim = (dim[0] // opt.scale_factor, dim[1] // opt.scale_factor, dim[2] // opt.scale_factor)
-    net = ConvGRUVSR(hidden_channels=hidden_channels, num_layers=num_layers, factor=opt.scale_factor,use_attn=opt.attn)
+    net = ConvGRUVSR(hidden_channels=hidden_channels, num_layers=num_layers, block_num = block_num, factor=opt.scale_factor, use_attn=opt.attn)
     net = net.to(device)
 
     print("===>Setting optimizers and loss functions")
@@ -205,7 +206,7 @@ if __name__ == '__main__':
             print('Patience:', patience)
 
         # save the best
-        addition = ''
+        addition = '_' + str(block_num)+'_block'
         if not opt.attn:
             addition = addition + '_no_attn'
         if opt.lambda_content == 0:

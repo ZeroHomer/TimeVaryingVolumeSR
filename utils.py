@@ -261,14 +261,18 @@ class BaseBlock(nn.Module):
         self.multi_scale_block = MultiScaleBlock(nf)
         self.use_attn = use_attn
         if use_attn:
-            # self.scbam = SCBAM(nf)
-            self.cbam = CBAM(nf)
+            self.scbam = SCBAM(nf)
+            # self.cbam = CBAM(nf)
+            # self.ca = ChannelAttention(nf)
         self.act1 = nn.GELU()
 
     def forward(self, x):
         out = self.multi_scale_block(x)
+
         if self.use_attn:
-            # out = self.scbam(out)
-            out = self.cbam(out)
+            out = self.scbam(out)
+            # out = self.cbam(out)
+            # out = self.ca(out) * out
         out = self.act1(out)
         return out
+

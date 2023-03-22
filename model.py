@@ -331,7 +331,7 @@ class ConvGRUVSR(nn.Module):
         gru_output = self.conv_gru(input_seq)
         output_seq = []
         for t in range(seq_len):
-            x = gru_output[:, t, :, :, :, :]
+            x = gru_output[:, t, :, :, :, :] + input_seq[:, t, :, :, :, :]
             res = x
             for i in range(self.block_num):
                 x = self.blocks[i](x) + res

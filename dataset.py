@@ -11,7 +11,7 @@ import torch
 import torch
 import random
 import numpy as np
-from scipy.spatial.transform import Rotation as R
+
 
 
 class RandomFlip3D:
