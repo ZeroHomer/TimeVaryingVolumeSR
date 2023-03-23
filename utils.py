@@ -262,8 +262,6 @@ class MultiScaleBlock(nn.Module):
                 if m.bias is not None:
                     nn.init.constant_(m.bias, 0)
 
-
-
 class BaseBlock(nn.Module):
     def __init__(self, nf, use_attn=True):
         super(BaseBlock, self).__init__()

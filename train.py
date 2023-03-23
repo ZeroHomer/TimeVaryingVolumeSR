@@ -106,7 +106,7 @@ if __name__ == '__main__':
     transform = transforms.Compose({
         RandomFlip3D(0.7)
     })
-    seq_num = 5
+    seq_num = 6
     train_set = VolumesDataset(opt.train_data_dir, dim, dsam_scale_factor, transform, seq_num=seq_num)
     val_set = VolumesDataset(opt.val_data_dir, dim, dsam_scale_factor, seq_num=0)
     train_loader = DataLoader(train_set, batch_size=opt.train_batch_size, shuffle=True)
