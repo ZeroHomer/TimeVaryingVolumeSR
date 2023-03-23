@@ -49,6 +49,7 @@ class UpsampleBlock(nn.Module):
                 ]
 
         self.layers = nn.ModuleList(layers)
+        self.init_weight()
 
     def forward(self, x):
         out = x
@@ -57,8 +58,21 @@ class UpsampleBlock(nn.Module):
                 out = module(out) * out + out
             else:
                 out = module(out)
-
         return out
+
+    def init_weight(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv3d):
+                # kaiming normal initialization
+                nn.init.kaiming_normal(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.BatchNorm3d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.Linear):
+                nn.init.normal_(m.weight, 0, 0.01)
+                nn.init.constant_(m.bias, 0)
 
 
 class DownsampleBlock(nn.Module):
@@ -255,12 +269,19 @@ class MultiScaleBlock(nn.Module):
         return out
 
     def init_weight(self):
-        # nn.init.xavier_normal_(param)
         for m in self.modules():
             if isinstance(m, nn.Conv3d):
-                nn.init.xavier_normal_(m.weight)
+                # kaiming normal initialization
+                nn.init.kaiming_normal(m.weight, mode='fan_out', nonlinearity='relu')
                 if m.bias is not None:
                     nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.BatchNorm3d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.Linear):
+                nn.init.normal_(m.weight, 0, 0.01)
+                nn.init.constant_(m.bias, 0)
+
 
 class BaseBlock(nn.Module):
     def __init__(self, nf, use_attn=True):
