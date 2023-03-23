@@ -216,6 +216,14 @@ class ConvGRUCell(nn.Module):
 
         return h_t
 
+    def init_weight(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv3d):
+                # kaiming normal initialization
+                nn.init.kaiming_normal(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+
 
 class ConvGRU(nn.Module):
     def __init__(self, input_channels, hidden_channels, kernel_size, num_layers):
