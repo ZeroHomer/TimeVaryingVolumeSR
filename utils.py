@@ -227,6 +227,7 @@ class SimplifiedChannelAttention(nn.Module):
         out = self.conv(self.pool(x))
         return out
 
+
 class SCBAM(nn.Module):
     def __init__(self, planes):
         super(SCBAM, self).__init__()
@@ -246,13 +247,20 @@ class MultiScaleBlock(nn.Module):
                                    nn.GELU())
         self.conv2 = nn.Sequential(nn.Conv3d(in_channels=nf, out_channels=nf // 2, kernel_size=5, padding=2),
                                    nn.GELU())
-        # self.sca = SimplifiedChannelAttention(nf)
-        # self.ca = ChannelAttention(nf)
+        self.init_weight()
 
     def forward(self, x):
         out = torch.cat([self.conv1(x), self.conv2(x)], dim=1)
         # out = out * self.ca(out)
         return out
+
+    def init_weight(self):
+        # nn.init.xavier_normal_(param)
+        for m in self.modules():
+            if isinstance(m, nn.Conv3d):
+                nn.init.xavier_normal_(m.weight)
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
 
 
 class BaseBlock(nn.Module):
@@ -275,4 +283,3 @@ class BaseBlock(nn.Module):
             # out = self.ca(out) * out
         out = self.act1(out)
         return out
-

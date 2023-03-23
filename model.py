@@ -262,6 +262,7 @@ class ConvGRUCell(nn.Module):
                                   hidden_channels,
                                   kernel_size=kernel_size,
                                   padding=self.padding)
+        self.init_weight()
 
     def forward(self, input_, prev_state):
         if prev_state is None:
@@ -278,6 +279,20 @@ class ConvGRUCell(nn.Module):
         h_t = update * h_t + (1 - update) * out
 
         return h_t
+
+    def init_weight(self):
+        # init conv using xavier
+        for m in self.modules():
+            if isinstance(m, nn.Conv3d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+
+
+class Decoder(nn.Module):
+    def __init__(self, input_channels, hidden_channels, kernel_size, padding, num_layers):
+        super(Decoder, self).__init__()
+        self.input_channels = input_channels
 
 
 class ConvGRU(nn.Module):
