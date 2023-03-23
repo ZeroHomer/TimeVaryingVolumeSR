@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
     print("===>Loading data")
     transform = transforms.Compose({
-        RandomFlip3D(0.7)
+        RandomFlip3D(0.5)
     })
     seq_num = 6
     train_set = VolumesDataset(opt.train_data_dir, dim, dsam_scale_factor, transform, seq_num=seq_num)
