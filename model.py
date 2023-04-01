@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 from torch.nn import init
-from utils import UpsampleBlock, CBAM, SimplifiedChannelAttention, MultiScaleBlock, SCBAM, BaseBlock
+from utils import UpsampleBlock, CBAM, SimplifiedChannelAttention, MultiScaleBlock, SCBAM, BasicBlock
 
 
 class ConvLSTMCell(nn.Module):
@@ -270,7 +270,7 @@ class ConvGRUVSR(nn.Module):
         self.block_num = block_num
         self.conv_gru = ConvGRU(input_channels, hidden_channels, kernel_size, num_layers)
 
-        self.blocks = nn.ModuleList([BaseBlock(nf, use_attn) for _ in range(self.block_num)])
+        self.blocks = nn.ModuleList([BasicBlock(nf, use_attn) for _ in range(self.block_num)])
         # self.multi_scale_blocks = nn.ModuleList([MultiScaleBlock(nf) for _ in range(4)])
         # 上采样
         self.upsample = UpsampleBlock(nf, scale_factor=factor, use_attn=False)

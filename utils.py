@@ -244,6 +244,10 @@ class SimplifiedChannelAttention(nn.Module):
 
 class SCBAM(nn.Module):
     def __init__(self, planes):
+        '''
+        Args:
+            planes: feature map的通道数
+        '''
         super(SCBAM, self).__init__()
         self.ca = SimplifiedChannelAttention(planes)  # planes是feature map的通道个数
         self.sa = SpatialAttention()
@@ -283,9 +287,9 @@ class MultiScaleBlock(nn.Module):
                 nn.init.constant_(m.bias, 0)
 
 
-class BaseBlock(nn.Module):
+class BasicBlock(nn.Module):
     def __init__(self, nf, use_attn=True):
-        super(BaseBlock, self).__init__()
+        super(BasicBlock, self).__init__()
         self.multi_scale_block = MultiScaleBlock(nf)
         self.use_attn = use_attn
         if use_attn:
