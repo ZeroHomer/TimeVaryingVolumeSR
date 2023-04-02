@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="root@region-42.seetacloud.com:55903" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@region-42.seetacloud.com:55903 (2)" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="dell@10.12.41.40:22">
         <serverdata>
@@ -51,13 +51,6 @@
           </mappings>
         </serverdata>
       </paths>
-      <paths name="root@region-41.seetacloud.com:16048">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
       <paths name="root@region-41.seetacloud.com:18843">
         <serverdata>
           <mappings>
@@ -66,6 +59,13 @@
         </serverdata>
       </paths>
       <paths name="root@region-42.seetacloud.com:55903">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/autodl-tmp/TimeVaryingVolumeSR" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@region-42.seetacloud.com:55903 (2)">
         <serverdata>
           <mappings>
             <mapping deploy="/root/autodl-tmp/TimeVaryingVolumeSR" local="$PROJECT_DIR$" />
