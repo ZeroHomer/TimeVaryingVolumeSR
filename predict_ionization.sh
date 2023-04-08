@@ -1,0 +1,1 @@
+python eval.py --data_dir E:/Study/Design/data/ionization_ab_H/test --dataset_name ionization_ab_H --model_checkpoint_path E:/Study/GraduationDesign/result/checkpoint_ConvGRUVSR_ionization_ab_H_3_block/ConvGRUVSR_epoch_800.pth --dim "(96, 96, 144)" --attn

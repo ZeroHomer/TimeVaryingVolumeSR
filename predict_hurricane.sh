@@ -1,0 +1,1 @@
+python eval.py --data_dir E:/Study/GraduationDesign/data/hurricane_wind/test --dataset_name hurricane_wind --model_checkpoint_path E:/Study/GraduationDesign/results/checkpoint_ConvGRUVSR_hurricane_wind/ConvGRUVSR_epoch_200.pth --dim "(48, 240, 240)" --attn
